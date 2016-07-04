@@ -51,19 +51,19 @@ int main()
 		return 0;
 	}
 
-	while( (c=fgetc(fp)) != EOF)
+	while( (c=fgetc(fp)) != EOF) //to find the number of lines in the file
 	{
 	    if(c == '\n')
             n++;
 	}
-	rewind(fp);
+	rewind(fp); //sets the file pointer back to start of file
 
 	stud = (struct Student*) malloc(sizeof(struct Student)*n);
 
-	for(i=0;i<7;i++)
-    {
-        fscanf(fp,"%[^,\n],",heading[i]);
-    }
+	for(i=0;i<7;i++) //first line in CSV file contains all field headings
+    	{
+        fscanf(fp,"%[^,\n],",heading[i]); //basically saying to read strings till a ',' or '\n'
+    	}
 
 
     for(i=0;i<n;i++)
