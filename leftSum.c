@@ -1,15 +1,11 @@
 //
 //  hex.c
-//  
-//
-//  Created by R.M.D. Engineering College  on 12/03/16.
-//
-//
+
 
 #include <stdio.h>
+#include<stdlib.h>
 
-
-#include<stdio.h>
+int sum=0;//global value
 
 struct Node
 {
@@ -38,18 +34,25 @@ int isLeaf(struct Node* head)
     }
 }
 
-int leftSum(struct Node* head)
+void helper(struct Node* root)
 {
-    int sum=0;
-    if(head == NULL)
+    
+    if(root == NULL)
     {
-        return 0;
+        return;
     }
-    if(isLeaf(head->left))
+    if(isLeaf(root->left))//most important line,without going to the leaf itself, we stand a node above and check
     {
-        sum = head->left->value;
+        sum = sum + root->left->value;
     }
-    return sum + leftSum(head->left)+ leftSum(head->right);
+    helper(root->left);
+    helper(root->right);
+}
+
+int leftSum(struct Node *root)
+{
+    helper(root);
+    return sum;
 }
 
 int main()
